@@ -21,7 +21,13 @@ switch ($request["type"])
 	case "auth":
 		$response = doLogin($request["username"],$request["password"]);
 	break;
+	case "validate":
+		validateSession($request['session']);
+		$response = "ok";
+	break;
 }
-echo json_encode($response);
+$r = json_encode($response);
+file_put_contents("/tmp/auth.php.output",$r."\n",FILE_APPEND);
+echo $r;
 
 ?>
