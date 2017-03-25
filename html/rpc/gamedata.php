@@ -1,7 +1,7 @@
 <?php
 
-require_once("../../dbaccess/gamedata.inc");
-require_once("../../dbaccess/auth.inc");
+require_once("../../../dbaccess/gamedata.inc");
+require_once("../../../dbaccess/auth.inc");
 
 if (!isset($_POST))
 {

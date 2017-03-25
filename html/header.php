@@ -22,7 +22,7 @@
             <a class="nav-link" href="./">HOME <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">PROFILE <span class="sr-only">(current)</span></a>
+            <a id="profile" class="nav-link disabled" href="profile.php">PROFILE <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">ABOUT <span class="sr-only">(current)</span></a>
@@ -34,12 +34,11 @@
             <a class="nav-link" href="#">CONTACT <span class="sr-only">(current)</span></a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick = "location.reload();location.href='login.php'">login</button>
+		<form class="form-inline mt-2 mt-md-0">
+          <button id="loginButton" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick = "location.reload();location.href='login.php'">login</button>
         </form>
       </div>
     </nav>
-
   <title>Home based Virtual Rehabilitation System</title>
   </head>
 

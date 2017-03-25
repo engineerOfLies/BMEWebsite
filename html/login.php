@@ -2,10 +2,7 @@
 <link href="signin.css" rel="stylesheet">
 <body>
 
-    <div id = "output">
-	status<p>
-    </div>
-    <div class="container">
+    <div id="loginForm" class="container">
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
@@ -34,7 +31,6 @@ function submitLogin()
 
 	var uname = document.getElementById("inputName").value;
 	var pword = document.getElementById("inputPassword").value;
-	document.getElementById("output").innerHTML = "username: " + uname + "<p>password: "+pword+"<p>";	
 	sendLoginRequest(uname,pword);
 	return 0;
 }
@@ -43,7 +39,6 @@ function HandleLoginResponse(response)
 {
 	var data = JSON.parse(response);
 	var text = JSON.stringify(response);
-	document.getElementById("output").innerHTML = "response: "+text+"<p>";
 	if (data.status != "success")
 	{
 		alert("Login Failed");
@@ -54,6 +49,7 @@ function HandleLoginResponse(response)
 		sessionStorage.setItem("sessionId",data.sessionId);
 		sessionStorage.setItem("username",data.username);
 		sessionStorage.setItem("role",data.role);
+		location.href = "profile.php";
 	}
 }
 
@@ -75,3 +71,17 @@ function sendLoginRequest(username,password)
 </script>
   </body>
 <?php include('footer.php'); ?>
+<script>
+function logOut()
+{
+	sessionStorage.setItem("sessionId",undefined);
+	sessionStorage.setItem("username",undefined);
+	sessionStorage.setItem("role",undefined);
+}
+if (sessionStorage.sessionId !== undefined)
+{
+	$("#loginForm").addClass("hidden");
+}
+</script>
+</html>
+

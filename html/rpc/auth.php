@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../dbaccess/auth.inc");
+require_once("../../../dbaccess/auth.inc");
 
 function doLogin($username,$password)
 {
@@ -22,8 +22,7 @@ switch ($request["type"])
 		$response = doLogin($request["username"],$request["password"]);
 	break;
 	case "validate":
-		validateSession($request['session']);
-		$response = "ok";
+		$response = validateSession($request['session']);
 	break;
 }
 $r = json_encode($response);
