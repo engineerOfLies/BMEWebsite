@@ -29,33 +29,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script>
-function submitLogin()
-{
-
-	var uname = document.getElementById("inputName").value;
-	var pword = document.getElementById("inputPassword").value;
-	document.getElementById("output").innerHTML = "username: " + uname + "<p>password: "+pword+"<p>";	
-	sendOrientationData();
-	return 0;
-}
-
-function HandleLoginResponse(response)
-{
-	var data = JSON.parse(response);
-	var text = JSON.stringify(response);
-	document.getElementById("output").innerHTML = "response: "+text+"<p>";
-	if (data.status != "success")
-	{
-		alert("Login Failed");
-		location.reload();
-	}
-	else
-	{
-		sessionStorage.setItem("sessionId",data.sessionId);
-		sessionStorage.setItem("username",data.username);
-		sessionStorage.setItem("role",data.role);
-	}
-}
 
 function sendOrientationData()
 {	

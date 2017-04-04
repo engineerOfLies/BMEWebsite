@@ -14,6 +14,7 @@ if (!isset($_POST))
 	echo json_encode($msg);
 	exit(0);
 }
+file_put_contents("/tmp/phpoutput",print_r($_POST, true),FILE_APPEND);
 $request = $_POST;
 $response = "unsupported request type";
 switch ($request["type"])

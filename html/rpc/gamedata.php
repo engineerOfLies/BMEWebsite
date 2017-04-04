@@ -10,7 +10,7 @@ if (!isset($_POST))
 	exit(0);
 }
 
-file_put_contents("/tmp/phpoutput",print_r($_POST, true));
+file_put_contents("/tmp/phpoutput",print_r($_POST, true),FILE_APPEND);
 
 function recordSessionData($request)
 {
@@ -21,8 +21,31 @@ function recordSessionData($request)
 	}
 	$gdb = new GameDataDB();
 	$ori = json_decode($request['orientations']);
-	$cus = json_decode($request['custom']);
+	$cus = NULL;
+	if (isset($request['custom']))
+	{
+		$cus = json_decode($request['custom']);
+	}
 	return $gdb->recordGameState($request['sessionId'],$ori,$cus);
+}
+
+function getSessionData($request)
+{
+	validateSession($request['session']);
+	$gdb = new GameDataDB();
+	return $gdb->getSessionData($request['sessionId']);
+}
+
+function endSession($request)
+{
+	validateSession($request['session']);
+	$cus = NULL;
+	if (isset($request['custom']))
+	{
+		$cus = json_decode($request['custom']);
+	}
+	$gdb = new GameDataDB();
+	return $gdb->endGameSession($request['gameSessionId'],$request['timestamp'],$cus);
 }
 
 function startSession($request)
@@ -32,38 +55,47 @@ function startSession($request)
 	{
 		err("no game information provided");	
 	}
+	
 	$gdb = new GameDataDB();
-	$game = $request['game'];
-	if (isset($game['name']))
+	$game = json_decode($request['game']);
+	if (isset($game->name))
 	{
-		return $gdb->startGameSessionName(
-			$game['name'],
-			$game['startTime'],
-			$game['patientId'],
-			$game['calibrations']);
+		$response =  $gdb->startGameSessionName(
+			$game->name,
+			$game->startTime,
+			$game->patientId,
+			$game->calibrations);
+		return $response;
 	}
-	if (isset($game['id']))
+	if (isset($game->id))
 	{
 		return $gdb->startGameSession(
-			$game['id'],
-			$game['startTime'],
-			$game['patientId'],
-			$game['calibrations']);	
+			$game->id,
+			$game->startTime,
+			$game->patientId,
+			$game->calibrations);	
 	}
 	err("game data missing id and name");
 }
 
 $request = $_POST;
-$response = "unsupported request type";
+$response = "unsupported request type: ".$request["type"];
 switch ($request["type"])
 {
+	case "getSessionData":
+		$response = getSessionData($request);
+	break;
 	case "startSession":
 		$response = startSession($request);
+	break;
+	case "endSession":
+		$response = endSession($request);
 	break;
 	case "recordSessionData":
 		$response = recordSessionData($request);
 	break;
 }
+file_put_contents("/tmp/phpoutput","response: ".json_encode($response),FILE_APPEND);
 echo json_encode($response);
 
 ?>

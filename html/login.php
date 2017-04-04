@@ -21,10 +21,8 @@
     </div> <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- local project includes -->
+    <script src="js/hovrs/calls.js"></script>
 	<script>
 function submitLogin()
 {
@@ -35,53 +33,7 @@ function submitLogin()
 	return 0;
 }
 
-function HandleLoginResponse(response)
-{
-	var data = JSON.parse(response);
-	var text = JSON.stringify(response);
-	if (data.status != "success")
-	{
-		alert("Login Failed");
-		location.reload();
-	}
-	else
-	{
-		sessionStorage.setItem("sessionId",data.sessionId);
-		sessionStorage.setItem("username",data.username);
-		sessionStorage.setItem("role",data.role);
-		location.href = "profile.php";
-	}
-}
-
-function sendLoginRequest(username,password)
-{
-	var request = new XMLHttpRequest();
-	request.open("POST","rpc/auth.php",true);
-	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	request.onreadystatechange = function ()
-	{
-		if ((this.readyState == 4)&&(this.status == 200))
-		{
-			HandleLoginResponse(this.responseText);
-		}
-	}
-	request.send("type=auth&username="+username+"&password="+password);
-}
-
 </script>
   </body>
 <?php include('footer.php'); ?>
-<script>
-function logOut()
-{
-	sessionStorage.setItem("sessionId",undefined);
-	sessionStorage.setItem("username",undefined);
-	sessionStorage.setItem("role",undefined);
-}
-if (sessionStorage.sessionId !== undefined)
-{
-	$("#loginForm").addClass("hidden");
-}
-</script>
 </html>
-

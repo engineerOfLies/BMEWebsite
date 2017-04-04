@@ -19,10 +19,10 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="./">HOME <span class="sr-only">(current)</span></a>
+            <a id="profile" class="nav-link disabled" href="profile.php">PROFILE <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a id="profile" class="nav-link disabled" href="profile.php">PROFILE <span class="sr-only">(current)</span></a>
+            <a id = "orientation" class="nav-link disabled" href="orientation.php">DATA <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">ABOUT <span class="sr-only">(current)</span></a>

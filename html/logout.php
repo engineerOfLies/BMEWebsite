@@ -12,13 +12,5 @@
 
 </body>
 <?php include('footer.php'); ?>
-<script>
-function signoff()
-{
-sessionStorage.removeItem("sessionId");
-sessionStorage.removeItem("username");
-sessionStorage.removeItem("role");
-location.href = "login.php";
-}
 </script>
 </html>
