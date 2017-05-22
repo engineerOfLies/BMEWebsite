@@ -36,6 +36,12 @@ function getSessionData($request)
 	return $gdb->getSessionData($request['sessionId']);
 }
 
+function getSessionList($request)
+{
+	validateSession($request['session']);
+	return $gdb->getSessionList($request['gameName']);
+}
+
 function endSession($request)
 {
 	validateSession($request['session']);
@@ -93,6 +99,9 @@ switch ($request["type"])
 	break;
 	case "recordSessionData":
 		$response = recordSessionData($request);
+	break;
+	case "getSessionList":
+		$response = getSessionList($request);
 	break;
 }
 file_put_contents("/tmp/phpoutput","response: ".json_encode($response),FILE_APPEND);
